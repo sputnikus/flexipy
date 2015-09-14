@@ -38,7 +38,10 @@ class Adresar(Flexipy):
         :param kod: kod adresare
         :param dalsi_param: dalsi nepovinne parametry
         """
-        return self.create_evidence_item('adresar',address_item)
+        address_item = {'kod': kod, 'nazev': nazev}
+        if isinstance(dalsi_param, dict):
+            address_item.update(dalsi_param)
+        return self.create_evidence_item('adresar', address_item)
 
     def create_adresar_bank_ucet(self, firma, cislo_uctu, kod_banky, dalsi_parametry=None):
         """Vytvori pro firmu v adresari bankovni spojeni.

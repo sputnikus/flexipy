@@ -43,7 +43,7 @@ class Flexipy(object):
             elif r.status_code == 403:
                 raise FlexipyException("Zakazana operace. Vase licence zrejme neumoznuje tuto operaci.")
             elif r.status_code == 500:
-                raise FlexipyException("Server error, zrejme je neco spatne se serverem na kterem je Flexibee.")
+                raise FlexipyException("Server error: {}".format(r.json()['message']))
         except requests.exceptions.ConnectionError as e:
             raise FlexipyException("Connection error "+str(e))
         else:

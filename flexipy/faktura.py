@@ -41,7 +41,7 @@ class Faktura(Flexipy):
         Returns :tuple skladajici se z (success, result, error_message)
         """
         #doplneni vyzadovano flexibee
-        if typ_dokl == None:
+        if typ_dokl is None:
             typ_dokl = self.conf.get_typy_faktury_vydane()[0]
         typ_dokl = 'code:' + typ_dokl
         #dopleni datumu na pozadovany format
@@ -53,15 +53,15 @@ class Faktura(Flexipy):
             'zdrojProSkl': zdroj_pro_sklad,
             'typDokl': typ_dokl
         }
-        if dalsi_param != None:
-            self.validate_params(dalsi_param, 'faktura-vydana')
+        if dalsi_param is not None:
+            # self.validate_params(dalsi_param, 'faktura-vydana')
             for k, v in dalsi_param.iteritems():
                 invoice[k] = v
-        if polozky_faktury != None:
+        if polozky_faktury is not None:
             invoice['bezPolozek'] = False
             inv_items = []
             for it in polozky_faktury:
-                self.validate_params(it, 'faktura-vydana-polozka')
+                # self.validate_params(it, 'faktura-vydana-polozka')
                 inv_items.append(it)
             invoice['polozkyFaktury'] = inv_items
         return self.create_evidence_item('faktura-vydana', invoice)
@@ -138,7 +138,7 @@ class Faktura(Flexipy):
     def get_prijata_faktura_by_code(self, code, detail='summary'):
         return self.get_evidence_item_by_code(code, 'faktura-prijata', detail)
 
-    def __get_faktura_pdf_url(self, faktura_typ, id):
+    def get_faktura_pdf_url(self, faktura_typ, id):
         """Vraci url odkaz na fakturu ve formatu pdf.
         :param faktura_typ: dve moznosti faktura-prijata, faktura-vydana
         :param id: id faktury

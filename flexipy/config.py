@@ -6,10 +6,10 @@ Je treba zde nastavit nektere parametry(viz dokumentace).
 Nektere promene je treba doplnit na zaklade faktickeho
 stavu z Flexibee. Napriklad doplnit typy faktur.
 """
-
+import codecs
 import ConfigParser
 from pkg_resources import Requirement, resource_filename
-import codecs
+from os.path import isfile
 
 
 class Config(object):
@@ -20,7 +20,10 @@ class Config(object):
     def __init__(self, config_name="flexipy/flexipy.conf"):
         self.conf = ConfigParser.SafeConfigParser()
         #use resource management api to find flexipy.conf, see docs
-        filename = resource_filename(Requirement.parse("flexipy"), config_name)
+        if not isfile(config_name):
+            filename = resource_filename(Requirement.parse("flexipy"), config_name)
+        else:
+            filename = config_name
         # Open the file with the correct encoding
         try:
             with codecs.open(filename, 'r', encoding='utf-8') as f:
