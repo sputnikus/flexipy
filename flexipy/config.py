@@ -91,8 +91,12 @@ class Config(object):
     def get_debug(self):
         try:
             section_content = self.conf.items("server")
-            if section_content.get('debug') == 'true':
-                return True
+            for key, val in section_content:
+                if key == 'debug':
+                    if val == 'true':
+                        return True
+                    else:
+                        return False
             else:
                 return False
         except ConfigParser.NoSectionError:
