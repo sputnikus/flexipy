@@ -213,6 +213,8 @@ class Flexipy(object):
         :param params: dictionary obsahujici dodatecne polozky
         :param evidence: typ evidence pro ktery se ma provest validace
         """
+        if not self.conf.get_debug():
+            return
         template_dict = self.get_template_dict(evidence, True)
         invalid_params = ''
         for key in params:

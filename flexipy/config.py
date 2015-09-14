@@ -88,6 +88,15 @@ class Config(object):
     def get_typ_pokladna(self):
         return self.get_section_list('typ_pokladna')
 
+    def get_debug(self):
+        try:
+            section_content = self.conf.items("server")
+            if section_content.get('debug') == 'true':
+                return True
+            else:
+                return False
+        except ConfigParser.NoSectionError:
+            return False
 
 
 class TestingConfig(Config):
@@ -97,6 +106,7 @@ class TestingConfig(Config):
 
     def __init__(self):
         Config.__init__(self, config_name="flexipy/test_flexipy.conf")
+
 
 class DemoConfig(Config):
     """

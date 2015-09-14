@@ -54,14 +54,14 @@ class Faktura(Flexipy):
             'typDokl': typ_dokl
         }
         if dalsi_param is not None:
-            # self.validate_params(dalsi_param, 'faktura-vydana')
+            self.validate_params(dalsi_param, 'faktura-vydana')
             for k, v in dalsi_param.iteritems():
                 invoice[k] = v
         if polozky_faktury is not None:
             invoice['bezPolozek'] = False
             inv_items = []
             for it in polozky_faktury:
-                # self.validate_params(it, 'faktura-vydana-polozka')
+                self.validate_params(it, 'faktura-vydana-polozka')
                 inv_items.append(it)
             invoice['polozkyFaktury'] = inv_items
         return self.create_evidence_item('faktura-vydana', invoice)
